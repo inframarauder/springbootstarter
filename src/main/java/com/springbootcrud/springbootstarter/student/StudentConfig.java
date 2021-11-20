@@ -16,19 +16,16 @@ public class StudentConfig {
             Student mariam = new Student(
                     "Mariam",
                     "mariam@test.com",
-                    22,
                     LocalDate.of(1999,2,2)
             );
             Student alex = new Student(
                     "Alex",
                     "alex@test.com",
-                    24,
                     LocalDate.of(1997,2,8)
             );
             Student stan = new Student(
                     "Stan",
                     "stan@test.com",
-                    21,
                     LocalDate.of(2000,1,18)
             );
 
