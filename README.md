@@ -1,2 +1,2 @@
 # springbootstarter
-A basic Springboot CRUD applicstion to get started with the framework
+A basic Springboot CRUD application to get started with the framework
