@@ -30,7 +30,17 @@ public class StudentService {
 
        if(studentOptional.isPresent()){
            throw new IllegalStateException("email already taken!");
+       }else{
+           studentRepository.save(student);
        }
-       studentRepository.save(student);
+    }
+
+    public void deleteStudent(long studentId) {
+        boolean studentExists = studentRepository.existsById(studentId);
+        if(studentExists){
+            studentRepository.deleteById(studentId);
+        }else{
+            throw new IllegalStateException("student with given id not found!");
+        }
     }
 }
