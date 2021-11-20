@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.swing.text.html.Option;
+import javax.transaction.Transactional;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.List;
@@ -45,6 +46,30 @@ public class StudentService {
        }
     }
 
+    @Transactional
+    public void updateStudent(long studentId, String name, String email) {
+        boolean studentExists = studentRepository.existsById(studentId);
+        if(studentExists){
+            Optional<Student> studentOptional = studentRepository.findById(studentId);
+            Student student = studentOptional.get();
+
+            if(name!=null && name.length() > 0){
+                student.setName(name);
+            }
+
+            if(email!=null && email.length() > 0){
+                Optional<Student> studentInDatabase = studentRepository.findStudentByEmail(email);
+                if(studentInDatabase.isPresent()){
+                    throw new IllegalStateException("email already taken!");
+                }else{
+                    student.setEmail(email);
+                }
+            }
+        }else{
+            throw new IllegalStateException("student with given id not found!");
+        }
+    }
+
     public void deleteStudent(long studentId) {
         boolean studentExists = studentRepository.existsById(studentId);
         if(studentExists){
@@ -53,6 +78,7 @@ public class StudentService {
             throw new IllegalStateException("student with given id not found!");
         }
     }
+
 
 
 }
