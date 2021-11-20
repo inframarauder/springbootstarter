@@ -23,6 +23,16 @@ public class StudentService {
         return studentRepository.findAll();
     }
 
+    public Student getStudentById(long studentId) {
+        boolean studentExists = studentRepository.existsById(studentId);
+        if(studentExists){
+            Optional<Student> student = studentRepository.findById(studentId);
+            return  student.get();
+        }else{
+            throw new IllegalStateException("student with given id not found!");
+        }
+    }
+
 
     public void addStudent(Student student) {
        String email = student.getEmail();
@@ -43,4 +53,6 @@ public class StudentService {
             throw new IllegalStateException("student with given id not found!");
         }
     }
+
+
 }
